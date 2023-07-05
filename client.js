@@ -28,10 +28,10 @@ function getList() {
 
         bin.addEventListener("click", (event) => {
           const id = event.target.parentElement.id;
+          event.preventDefault();
+          document.getElementById(id).display = "none";
           fetch("http://localhost:3000/todos/" + id, {
             method: "DELETE",
-          }).then((response) => {
-            getList();
           });
         });
       });
@@ -41,7 +41,8 @@ function getList() {
     });
 }
 
-button.addEventListener("click", () => {
+button.addEventListener("click", (event) => {
+  event.preventDefault();
   const obj = {
     task: task.value,
     description: description.value,
@@ -66,8 +67,6 @@ button.addEventListener("click", () => {
     .catch((err) => {
       console.error("Error creating todo: " + err);
     });
-
-  getList();
 });
 
 getList();
